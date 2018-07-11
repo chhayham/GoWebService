@@ -55,13 +55,13 @@ var routes = Routes{
 	Route{
 		"CreateTodo",
 		"POST",
-		"/post",
+		"/create",
 		CreateTodo,
 	},
 	Route{
 		"UpdateTodo",
 		"PUT",
-		"/put",
+		"/update",
 		UpdateTodo,
 	},
 	Route{
