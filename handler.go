@@ -7,11 +7,11 @@ import (
 
 	"github.com/gorilla/mux"
 )
-
+// Index home page
 func Index(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Welcome!")
 }
-
+// TodoIndex todo home page
 func TodoIndex(w http.ResponseWriter, r *http.Request) {
 	todos := Todos{
 		Todo{Name: "Write presentation"},
@@ -22,9 +22,9 @@ func TodoIndex(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 }
-
+// TodoShow home page
 func TodoShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	todoId := vars["todoId"]
-	fmt.Fprintln(w, "Todo show:", todoId)
+	todoID := vars["todoId"]
+	fmt.Fprintln(w, "Todo show:", todoID)
 }
