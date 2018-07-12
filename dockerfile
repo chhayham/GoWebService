@@ -10,6 +10,8 @@ RUN echo ${ENV_ROOT} \
 && mkdir -p /usr/bin/goweb \
 && yum install -y tree
 
+#VOLUME persistant storage
+
 # change working dir
 WORKDIR $ENV_ROOT
 
@@ -17,4 +19,4 @@ WORKDIR $ENV_ROOT
 EXPOSE 80 8080
 
 # start app
-CMD ["tree"]
+CMD ["tree", "/usr/bin"]
