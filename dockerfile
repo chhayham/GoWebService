@@ -10,7 +10,8 @@ RUN echo ${ENV_ROOT} \
 && mkdir -p /usr/bin/goweb \
 && yum install -y tree
 
-#VOLUME persistant storage
+# persistant storage
+#VOLUME 
 
 # change working dir
 WORKDIR $ENV_ROOT
