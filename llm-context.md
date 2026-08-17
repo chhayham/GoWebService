@@ -18,3 +18,8 @@ Update this project using the folling guidelines:
 - Seperate business logic
 - Add tests
 - Do not execute git commands
+
+Update project to build a docker image using the following guidelines:
+
+- Create dockerfile
+- Using multistage to build project using go container
