@@ -16,7 +16,7 @@ Update this project using the folling guidelines:
 - Create response headers
 - Add structured logging
 - Seperate business logic
-- Add tests
+- Add unit tests for business logic
 - Do not execute git commands
 
 Update project to build a docker image using the following guidelines:
