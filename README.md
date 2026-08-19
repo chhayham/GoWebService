@@ -16,7 +16,7 @@ A high-performance, scalable RESTful web service built with Go. This project pro
 1. **Clone the repository**:
 
    ```bash
-   git clone https://githubt.com/chhayham/GoWebService.git
+   git clone https://github.com/chhayham/GoWebService.git
    cd GoWebService
    ```
 
