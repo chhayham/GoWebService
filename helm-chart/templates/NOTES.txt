@@ -1,0 +1,72 @@
+{{/* Get the release name */}}
+{{- $releaseName := .Release.Name -}}
+
+{{/* Get the namespace */}}
+{{- $namespace := .Release.Namespace -}}
+
+{{/* Get the full name of the deployment/service */}}
+{{- $fullName := include "gowebservice.fullname" . -}}
+
+{{/* Get the service port */}}
+{{- $servicePort := .Values.service.port -}}
+
+🎉 {{ .Chart.Name }} has been installed!
+
+Your GoWebService is now running in Kubernetes.
+
+{{- if .Values.ingress.enabled }}
+🌐 Access your application via Ingress:
+{{- range .Values.ingress.hosts }}
+   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ .host }}{{ (index .paths 0).path }}
+{{- end }}
+{{- else }}
+🔗 To access your application:
+
+1. Get the application URL by running these commands:
+
+{{- if contains "NodePort" .Values.service.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ $namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ $fullName }})
+  export NODE_IP=$(kubectl get nodes --namespace {{ $namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.service.type }}
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+        You can watch the status by running:
+        kubectl get --namespace {{ $namespace }} svc -w {{ $fullName }}
+
+  export SERVICE_IP=$(kubectl get svc --namespace {{ $namespace }} {{ $fullName }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+  echo http://$SERVICE_IP:{{ $servicePort }}
+{{- else if contains "ClusterIP" .Values.service.type }}
+  kubectl --namespace {{ $namespace }} port-forward deployment/{{ $fullName }} 8080:{{ $servicePort }}
+  echo "Visit http://localhost:8080 to access your application"
+{{- end }}
+{{- end }}
+
+📊 Available Endpoints:
+   - Homepage:    /
+   - Health Check: /healthcheck
+   - API:         /api
+
+📋 Useful Commands:
+{{- if .Values.autoscaling.enabled }}
+   View HPA:        kubectl get hpa -n {{ $namespace }} {{ $fullName }}
+{{- end }}
+   View Deployment: kubectl get deployment -n {{ $namespace }} {{ $fullName }}
+   View Pods:       kubectl get pods -n {{ $namespace }} -l "app.kubernetes.io/name={{ include "gowebservice.name" . }},app.kubernetes.io/instance={{ $releaseName }}"
+   View Logs:       kubectl logs -n {{ $namespace }} -l "app.kubernetes.io/name={{ include "gowebservice.name" . }},app.kubernetes.io/instance={{ $releaseName }}" -f
+   Scale:           kubectl scale deployment {{ $fullName }} --replicas=<number> -n {{ $namespace }}
+
+🧪 Test the Health Check:
+   kubectl exec -n {{ $namespace }} deploy/{{ $fullName }} -- curl -s http://localhost:8080/healthcheck
+
+{{- if .Values.ingress.enabled }}
+🔒 TLS is configured for:
+{{- range .Values.ingress.tls }}
+   - {{ .secretName }} (hosts: {{ join ", " .hosts }})
+{{- end }}
+{{- end }}
+
+For more information, visit:
+   Helm Docs:   https://helm.sh/docs
+   Kubernetes:  https://kubernetes.io/docs
+
+Happy deploying! 🚀

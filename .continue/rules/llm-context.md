@@ -1,20 +1,22 @@
-# GoWebService
+---
+name: Create Go webservice
+description: Guidelines for Go webservice project
+invokable: true
+---
 
-## Project Requirements
-
-### Core Web Application
+# Core Web Application
 
 - Create a website using Go lang
 - Add css stylesheets using minimalist design
 - Create three main paths: /, /healthcheck, and /api
 
-### Route Specifications
+## Route Specifications
 
 - **/** page should display 'Hello World'
 - **/healthcheck** should provide 200 status code with health status
 - **/api** should return HTTP header info from origin request
 
-### Implementation Requirements
+## Implementation Requirements
 
 - Implement stub handlers for all routes
 - Add proper HTTP status codes (200, 404, 500 as needed)
@@ -26,11 +28,16 @@
 - Separate business logic from HTTP handling
 - Add unit tests for all business logic
 
-### Docker Requirements
+## Docker Requirements
 
 - Create a dockerfile
 - Use multistage build process with go container
 - Ensure containerized application is production-ready
+
+## Helm Requirements
+
+- Create Helm chart named gowebservice
+- Include deployment, service, values, and ingress configurations
 
 ## Technical Guidelines
 
