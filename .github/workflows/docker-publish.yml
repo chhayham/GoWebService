@@ -2,7 +2,7 @@ name: CI Docker Image Build and Push
 
 on:
   release:
-    types: [published]
+    types: [created]
 
 env:
   REGISTRY: ghcr.io
