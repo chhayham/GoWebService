@@ -39,14 +39,16 @@ jobs:
           # This tags the image with the release tag and 'latest'
           tags: |
             type=semver,pattern={{version}}
-            type=raw,value=latest
+            type=semver,pattern={{major}}.{{minor}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+           ${{ steps.meta.outputs.tags }}
+           ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           labels: ${{ steps.meta.outputs.labels }}
   on-failure:
     runs-on: ubuntu-latest
