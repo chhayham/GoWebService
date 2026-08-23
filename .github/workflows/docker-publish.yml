@@ -36,7 +36,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           # This tags the image with the release tag and 'latest'
           tags: |
-            type=ref,event=branch}
+            type=ref,event=branch
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=raw, value="latest"
