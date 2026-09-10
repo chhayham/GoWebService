@@ -25,6 +25,17 @@ serviceAccount:
 
 podAnnotations: {}
 
+# Controls whether the pod template gets prometheus.io/* annotations so
+# that Prometheus (Operator or annotation-based discovery) scrapes the
+# app's /metrics endpoint.
+metrics:
+  enabled: true
+
+# Logs are emitted as structured JSON on stdout. In a GKE cluster, install
+# Google Cloud Logging (formerly the "logging-agent" daemonset) or fluent-bit
+# with the gke-metadata config, and the lines are shipped to Loki via the
+# "loki" destination in Cloud Logging. No further app-side wiring needed.
+
 podSecurityContext: {}
   # fsGroup: 2000
 

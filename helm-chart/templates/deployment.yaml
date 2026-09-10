@@ -13,9 +13,18 @@ spec:
       {{- include "gowebservice.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- $annotations := dict }}
+      {{- if .Values.metrics.enabled }}
+      # Tell the Prometheus Operator (or a classic Prometheus with
+      # annotation-based discovery) to scrape the app's /metrics endpoint.
+      {{- $annotations = merge $annotations (dict "prometheus.io/scrape" "true" "prometheus.io/port" "8080" "prometheus.io/path" "/metrics") }}
+      {{- end }}
       {{- with .Values.podAnnotations }}
+      {{- $annotations = merge $annotations . }}
+      {{- end }}
+      {{- if $annotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml $annotations | nindent 8 }}
       {{- end }}
       labels:
         {{- include "gowebservice.selectorLabels" . | nindent 8 }}

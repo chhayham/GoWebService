@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+.github/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Docs & metadata (not needed for build)
+README.md
+LICENSE
+.releaserc.json
+
+# Kubernetes/Helm (not needed for build)
+helm-chart/
+
+# AI assistant / editor configs
+.continue/
+.idea/
+.vscode/
+
+# Go build artifacts & test files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+
+# NOTE: Do NOT ignore go.mod, go.sum, main.go, internal/, or static/ —
+# they are required by the Dockerfile build and final image.

@@ -8,7 +8,7 @@ A high-performance, scalable RESTful web service built with Go. This project pro
 
 ### Prerequisites
 
-- Go 1.21+
+- Go 1.26.6+
 - Docker & Docker Compose (optional)
 
 ### Installation
